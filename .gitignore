@@ -1,0 +1,13 @@
+# Verzeichnisse
+.git
+.idea
+.mvn
+out
+target
+
+# Dateien
+*.iml
+*.bak
+*.csv
+*.sql
+rebel.xml
