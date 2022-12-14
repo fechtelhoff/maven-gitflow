@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>de.fechtelhoff</groupId>
+	<artifactId>maven-gitflow</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>maven-gitflow</name>
+	<description>Test des JGitFlow- und GitFlow-Plugins.</description>
+
+	<modules>
+		<module>maven-gitflow-api</module>
+		<module>maven-gitflow-impl</module>
+	</modules>
+
+	<properties>
+		<!-- Application -->
+		<appMainClass>de.fechtelhoff.maven.gitflow.impl.Start</appMainClass>
+
+		<!-- Encoding  -->
+		<project.encoding>UTF-8</project.encoding>
+		<project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>${project.encoding}</project.reporting.outputEncoding>
+
+		<!-- Java Version -->
+		<java.version>17</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+
+		<!-- Dependency Version -->
+		<version.apache.commons.lang>3.12.0</version.apache.commons.lang>
+		<version.slf4j>2.0.6</version.slf4j>
+		<version.junit>5.9.1</version.junit>
+
+		<!-- Plugin Version -->
+		<version.resources.plugin>3.3.0</version.resources.plugin>
+		<version.compiler.plugin>3.10.1</version.compiler.plugin>
+		<version.surefire.plugin>3.0.0-M7</version.surefire.plugin>
+		<version.source.plugin>3.2.1</version.source.plugin>
+		<version.javadoc.plugin>3.4.1</version.javadoc.plugin>
+		<version.assembly.plugin>3.4.1</version.assembly.plugin>
+		<version.jgitlfow.plugin>1.0-m5.1</version.jgitlfow.plugin>
+		<version.gitflow.plugin>1.19.0</version.gitflow.plugin>
+		<version.versions.plugin>2.11.0</version.versions.plugin>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- Project Internal Dependencies -->
+			<dependency>
+				<groupId>de.fechtelhoff</groupId>
+				<artifactId>maven-gitflow-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<!-- Utils -->
+			<!-- https://commons.apache.org -->
+			<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>${version.apache.commons.lang}</version>
+			</dependency>
+
+			<!-- Logging -->
+			<!-- http://www.slf4j.org -->
+			<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${version.slf4j}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-simple</artifactId>
+				<version>${version.slf4j}</version>
+			</dependency>
+
+			<!-- JUnit 5 -->
+			<!-- https://junit.org/junit5 -->
+			<!-- https://mvnrepository.com/artifact/org.junit/junit-bom -->
+			<dependency>
+				<groupId>org.junit</groupId>
+				<artifactId>junit-bom</artifactId>
+				<version>${version.junit}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+		</dependency>
+
+		<!-- JUnit 5 -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<!-- Resources -->
+				<!-- https://maven.apache.org/plugins/maven-resources-plugin -->
+				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-resources-plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>${version.resources.plugin}</version>
+					<configuration>
+						<propertiesEncoding>${project.encoding}</propertiesEncoding>
+					</configuration>
+				</plugin>
+
+				<!-- Compiler -->
+				<!-- https://maven.apache.org/plugins/maven-compiler-plugin -->
+				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${version.compiler.plugin}</version>
+					<configuration>
+						<release>${java.version}</release>
+						<encoding>${project.encoding}</encoding>
+						<showWarnings>true</showWarnings>
+						<showDeprecation>true</showDeprecation>
+					</configuration>
+				</plugin>
+
+				<!-- Surefire -->
+				<!-- https://maven.apache.org/surefire/maven-surefire-plugin -->
+				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${version.surefire.plugin}</version>
+				</plugin>
+
+				<!-- Source -->
+				<!-- https://maven.apache.org/plugins/maven-source-plugin -->
+				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-source-plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>${version.source.plugin}</version>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<goals>
+								<goal>jar-no-fork</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+				<!-- JavaDoc -->
+				<!-- https://maven.apache.org/plugins/maven-javadoc-plugin -->
+				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>${version.javadoc.plugin}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>javadoc</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<noqualifier>all</noqualifier>
+						<failOnError>false</failOnError>
+						<doclint>none</doclint>
+						<show>protected</show>
+					</configuration>
+				</plugin>
+
+				<!-- Assembly -->
+				<!-- https://maven.apache.org/plugins/maven-assembly-plugin -->
+				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-assembly-plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>${version.assembly.plugin}</version>
+				</plugin>
+
+				<!-- JGitFlow -->
+				<!-- https://bitbucket.org/atlassian/jgit-flow/wiki/Home -->
+				<!-- https://mvnrepository.com/artifact/external.atlassian.jgitflow/jgitflow-maven-plugin -->
+				<plugin>
+					<groupId>external.atlassian.jgitflow</groupId>
+					<artifactId>jgitflow-maven-plugin</artifactId>
+					<version>${version.jgitlfow.plugin}</version>
+					<configuration>
+						<autoVersionSubmodules>true</autoVersionSubmodules>
+						<pushReleases>false</pushReleases><!-- Set to "true" in real life Project -->
+						<pullDevelop>true</pullDevelop>
+						<pullMaster>true</pullMaster>
+						<noDeploy>true</noDeploy>
+						<noReleaseBuild>true</noReleaseBuild>
+						<flowInitContext>
+							<masterBranchName>main</masterBranchName>
+							<developBranchName>develop</developBranchName>
+							<featureBranchPrefix>feature-</featureBranchPrefix>
+							<releaseBranchPrefix>release-</releaseBranchPrefix>
+							<hotfixBranchPrefix>hotfix-</hotfixBranchPrefix>
+							<versionTagPrefix />
+						</flowInitContext>
+					</configuration>
+				</plugin>
+
+				<!-- GitFlow -->
+				<!-- https://github.com/aleksandr-m/gitflow-maven-plugin -->
+				<!-- https://mvnrepository.com/artifact/com.amashchenko.maven.plugin/gitflow-maven-plugin -->
+				<plugin>
+					<groupId>com.amashchenko.maven.plugin</groupId>
+					<artifactId>gitflow-maven-plugin</artifactId>
+					<version>${version.gitflow.plugin}</version>
+					<configuration>
+						<installProject>false</installProject>
+                        <fetchRemote>false</fetchRemote>
+						<pushRemote>false</pushRemote><!-- Set to "true" in real life Project -->
+						<gitFlowConfig>
+							<productionBranch>main</productionBranch>
+							<developmentBranch>develop</developmentBranch>
+							<featureBranchPrefix>feature-</featureBranchPrefix>
+							<releaseBranchPrefix>release-</releaseBranchPrefix>
+							<hotfixBranchPrefix>hotfix-</hotfixBranchPrefix>
+							<supportBranchPrefix>support-</supportBranchPrefix>
+							<versionTagPrefix></versionTagPrefix>
+							<origin>origin</origin>
+						</gitFlowConfig>
+						<commitMessages>
+                            <releaseStartMessage>Update versions for release to @{version}</releaseStartMessage>
+                            <releaseFinishMessage>Update for next development version to @{version}</releaseFinishMessage>
+						</commitMessages>
+					</configuration>
+				</plugin>
+
+				<!-- Versions -->
+				<!-- https://www.mojohaus.org/versions-maven-plugin/index.html -->
+				<!-- https://mvnrepository.com/artifact/org.codehaus.mojo/versions-maven-plugin -->
+				<!-- Aufruf z.B. über "mvn versions:display-property-updates" -->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>versions-maven-plugin</artifactId>
+					<version>${version.versions.plugin}</version>
+					<configuration>
+						<!--suppress UnresolvedMavenProperty -->
+						<rulesUri>file:///${session.executionRootDirectory}/maven-version-rules.xml</rulesUri>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<!-- Compiler -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+
+			<!-- Surefire -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
+
+			<!-- Source -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+
+			<!-- JGitFlow -->
+			<plugin>
+				<groupId>external.atlassian.jgitflow</groupId>
+				<artifactId>jgitflow-maven-plugin</artifactId>
+			</plugin>
+
+			<!-- GitFlow -->
+			<plugin>
+				<groupId>com.amashchenko.maven.plugin</groupId>
+				<artifactId>gitflow-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>Default</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+
+		<profile>
+			<id>doc</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+</project>
